@@ -1,8 +1,11 @@
 import dotenv from 'dotenv';
+import express from 'express';
+import { ApolloServer, GraphQLExtension } from 'apollo-server-express';
+import { graphqlSchema } from './schema';
+
 dotenv.config();
 
-import { ApolloServer } from 'apollo-server';
-import { graphqlSchema } from './schema';
+const app = express();
 
 // The ApolloServer constructor requires two parameters: your schema
 // definition and your set of resolvers.
@@ -17,7 +20,10 @@ const server = new ApolloServer({
   },
 });
 
-// The `listen` method launches a web server.
-server.listen().then(({ url }) => {
-  console.log(`🚀  Server ready at ${url}`);
+server.applyMiddleware({ app });
+
+app.listen({ port: 4000 }, () => {
+  console.log(
+    `🚀  GraphQL Server ready at http://localhost:4000${server.graphqlPath}`
+  );
 });
