@@ -16,9 +16,6 @@ const fetchSummary = async url => {
 };
 
 export const fetchSummaryResolver = async (_root, args, context, info) => {
-  // console.log({ _root, context, info });
-  console.log({ context });
-
   const { year: _year, month: _month, day: _day } = args.date ? args.date : {};
   const _date = isDateValid(`${_year}/${_month}/${_day}`)
     ? new Date(Date.UTC(_year, _month - 1, _day))
