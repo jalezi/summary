@@ -43,7 +43,7 @@ const SubValuesType = new GraphQLObjectType({
   },
 });
 
-const SharedInterface = new GraphQLInterfaceType({
+export const SharedInterface = new GraphQLInterfaceType({
   name: 'Shared',
   description: 'Some Description',
   fields: () => ({
@@ -98,7 +98,7 @@ const sharedFields = {
   },
 };
 
-const CasesType = new GraphQLObjectType({
+export const CasesType = new GraphQLObjectType({
   name: 'CasesToDate',
   description: 'Some Description',
   fields: () => ({
@@ -107,7 +107,7 @@ const CasesType = new GraphQLObjectType({
   interfaces: [SharedInterface],
 });
 
-const CasesWithSublabelType = new GraphQLObjectType({
+export const CasesWithSublabelType = new GraphQLObjectType({
   name: 'CasesAvg7Days',
   description: 'Some Description',
   fields: () => ({
