@@ -8,6 +8,7 @@ import {
   GraphQLInterfaceType,
   GraphQLString,
   GraphQLInputObjectType,
+  GraphQLEnumType,
 } from 'graphql';
 
 const SubValuesType = new GraphQLObjectType({
@@ -145,4 +146,46 @@ export const DateInputType = new GraphQLInputObjectType({
       defaultValue: new Date().getDate(),
     },
   }),
+});
+
+export const PropertiesType = new GraphQLEnumType({
+  name: 'Properties',
+  description: 'Some Description',
+  values: {
+    casesToDateSummary: {
+      value: 'casesToDateSummary',
+      type: GraphQLString,
+      description: 'Some Description',
+    },
+    casesActive: {
+      value: 'casesActive',
+      type: GraphQLString,
+      description: 'Some Description',
+    },
+    casesAvg7Days: {
+      value: 'casesAvg7Days',
+      description: 'Some Description',
+      type: GraphQLString,
+    },
+    hospitalizedCurrent: {
+      value: 'hospitalizedCurrent',
+      description: 'Some Description',
+      type: GraphQLString,
+    },
+    icuCurrent: {
+      value: 'icuCurrent',
+      description: 'Some Description',
+      type: GraphQLString,
+    },
+    deceasedToDate: {
+      value: 'deceasedToDate',
+      description: 'Some Description',
+      type: GraphQLString,
+    },
+    testsToday: {
+      value: 'testsToday',
+      description: 'Some Description',
+      type: GraphQLString,
+    },
+  },
 });
