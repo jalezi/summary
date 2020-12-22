@@ -11,6 +11,8 @@ import {
   GraphQLEnumType,
 } from 'graphql';
 
+import { isDateValid } from './../../utils';
+
 const SubValuesType = new GraphQLObjectType({
   name: 'SubValues',
   description: 'Some Description',
@@ -45,6 +47,10 @@ const SharedInterface = new GraphQLInterfaceType({
   name: 'Shared',
   description: 'Some Description',
   fields: () => ({
+    date: {
+      type: GraphQLNonNull(GraphQLDateTime),
+      description: 'Some Description',
+    },
     value: {
       type: GraphQLFloat,
       description: 'Some Description',
@@ -61,6 +67,29 @@ const sharedFields = {
   value: { type: GraphQLFloat },
   diffPercentage: { type: GraphQLFloat },
   subValues: { type: SubValuesType },
+  date: {
+    type: GraphQLNonNull(GraphQLDateTime),
+    description: 'Some Description',
+    resolve: (root, _, __, info) => {
+      const { variableValues } = info;
+      let { date } = root;
+      let isDate = isDateValid(date);
+
+      if (isDate) {
+        return date;
+      }
+
+      let { year, month, day } = root || variableValues;
+      isDate = isDateValid(`${year}/${month}/${day}`);
+      date = new Date(Date.UTC(year, month - 1, day));
+
+      if (isDate) {
+        return date;
+      }
+
+      return null;
+    },
+  },
 };
 
 const CasesType = new GraphQLObjectType({
