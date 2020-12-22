@@ -6,7 +6,8 @@ const SUMMARY_PATH = 'summary';
 const TO_DATE_PARAM = 'toDate';
 const SUMMARY_URL = `${BASE_URL}/${SUMMARY_PATH}`;
 
-const isDateValid = (...val) => !Number.isNaN(new Date(...val).valueOf());
+export const isDateValid = (...val) =>
+  !Number.isNaN(new Date(...val).valueOf());
 const isNotNull = val => val !== null;
 
 const fetchSummary = async url => {
