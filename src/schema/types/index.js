@@ -61,6 +61,12 @@ const SharedInterface = new GraphQLInterfaceType({
     },
     subValues: { type: SubValuesType },
   }),
+  resolveType(shared, _context, _info) {
+    if (shared.sublabel) {
+      return CasesWithSublabelType;
+    }
+    return CasesType;
+  },
 });
 
 const sharedFields = {
