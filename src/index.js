@@ -11,6 +11,9 @@ const app = express();
 // definition and your set of resolvers.
 const server = new ApolloServer({
   schema: graphqlSchema,
+  context: async ({ req }) => {
+    return { startTime: new Date() };
+  },
   tracing: true,
   cacheControl: true,
   formatResponse(res, req) {
