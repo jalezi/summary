@@ -1,0 +1,9 @@
+# ApolloStudio Graph Api Key
+APOLLO_KEY=APOLLO_STUDIO_API_KEY
+APOLLO_SCHEMA_REPORTING=true
+# The infrastructure environment that your server is running in (localhost, kubernetes/deployment, aws lambda, google cloud run, google cloud function, AWS ECS, etc.)
+APOLLO_SERVER_PLATFORM=localhost
+# An ID that's unique for each running instance of your server. This value should persist across an instance's restarts. For example, in a Kubernetes cluster, you can use the server's pod name.
+APOLLO_SERVER_ID=SOME_ID
+# An identifier for the current running version of your server, such as the SHA of its associated Git commit. We plan to display this value in Apollo Studio to help you segment metrics.
+APOLLO_SERVER_USER_VERSION=VERSION_IDENTIFIER
