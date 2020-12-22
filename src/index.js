@@ -7,8 +7,6 @@ dotenv.config();
 
 const app = express();
 
-// The ApolloServer constructor requires two parameters: your schema
-// definition and your set of resolvers.
 const server = new ApolloServer({
   schema: graphqlSchema,
   context: async ({ req }) => {
@@ -17,10 +15,20 @@ const server = new ApolloServer({
   tracing: true,
   cacheControl: true,
   formatResponse(res, req) {
-    const { context } = req;
+    const { context, extensions } = req;
+    const { startTime } = context;
+    const endTime = new Date();
+    const duration = endTime - startTime;
     return {
       ...res,
-      extensions: { context },
+      extensions: {
+        ...extensions,
+        runTime: {
+          startTime,
+          endTime,
+          duration,
+        },
+      },
     };
   },
 });
