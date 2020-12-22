@@ -151,7 +151,6 @@ export const SummaryType = new GraphQLObjectType({
       type: CasesType,
       description: 'Some Description',
     },
-    message: { type: GraphQLString, description: 'Some Description' },
   }),
 });
 
