@@ -15,14 +15,13 @@ const server = new ApolloServer({
   tracing: true,
   cacheControl: true,
   formatResponse(res, req) {
-    const { context, extensions } = req;
+    const { context } = req;
     const { startTime } = context;
     const endTime = new Date();
     const duration = endTime - startTime;
     return {
       ...res,
       extensions: {
-        ...extensions,
         runTime: {
           startTime,
           endTime,
