@@ -157,6 +157,11 @@ export const SummaryType = new GraphQLObjectType({
       type: CasesType,
       description: 'Some Description',
     },
+    testsTodayHAT: {
+      type: CasesType,
+      description: 'Some Description',
+      resolve: cacheResolver(),
+    },
   }),
 });
 
