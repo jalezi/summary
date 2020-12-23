@@ -9,7 +9,7 @@ const app = express();
 
 const server = new ApolloServer({
   schema: graphqlSchema,
-  context: async ({ req }) => {
+  context: async () => {
     return { startTime: new Date() };
   },
   tracing: true,
