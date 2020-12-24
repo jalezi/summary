@@ -70,9 +70,13 @@ export const SharedInterface = new GraphQLInterfaceType({
 });
 
 const sharedFields = {
-  value: { type: GraphQLFloat },
-  diffPercentage: { type: GraphQLFloat },
-  subValues: { type: SubValuesType },
+  subValues: {
+    type: SubValuesType,
+    resolve: (rootValue, _, __, info) => {
+      info.cacheControl.setCacheHint({ maxAge: 60, scope: 'PRIVATE' });
+      return rootValue[info.fieldName];
+    },
+  },
   date: {
     type: GraphQLNonNull(GraphQLDateTime),
     description: 'Some Description',
@@ -120,6 +124,13 @@ export const CasesWithSublabelType = new GraphQLObjectType({
   interfaces: [SharedInterface],
 });
 
+const cacheResolver = (fieldName = true) => (rootValue, _, __, info) => {
+  info.cacheControl.setCacheHint({ maxAge: 60, scope: 'PRIVATE' });
+  if (fieldName) {
+    return rootValue[info.fieldName];
+  }
+  return rootValue;
+};
 export const SummaryType = new GraphQLObjectType({
   name: 'Summary',
   description: 'Some description',
@@ -132,30 +143,37 @@ export const SummaryType = new GraphQLObjectType({
     casesToDateSummary: {
       type: CasesType,
       description: 'Some Description',
+      resolve: cacheResolver(),
     },
     casesActive: {
       type: CasesType,
       description: 'Some Description',
+      resolve: cacheResolver(),
     },
     casesAvg7Days: {
       type: CasesWithSublabelType,
       description: 'Some Description',
+      resolve: cacheResolver(),
     },
     hospitalizedCurrent: {
       type: CasesType,
       description: 'Some Description',
+      resolve: cacheResolver(),
     },
     icuCurrent: {
       type: CasesType,
       description: 'Some Description',
+      resolve: cacheResolver(),
     },
     deceasedToDate: {
       type: CasesType,
       description: 'Some Description',
+      resolve: cacheResolver(),
     },
     testsToday: {
       type: CasesType,
       description: 'Some Description',
+      resolve: cacheResolver(),
     },
     testsTodayHAT: {
       type: CasesType,

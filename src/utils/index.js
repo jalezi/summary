@@ -37,6 +37,8 @@ export const fetchSummaryResolver = async (_root, args, context, info) => {
   const t_day = today.getDate();
   const date = _date ? _date : new Date(Date.UTC(t_year, t_month, t_day));
 
+  info.cacheControl.setCacheHint({ maxAge: 60, scope: 'PRIVATE' });
+
   return {
     date,
     ...json,
