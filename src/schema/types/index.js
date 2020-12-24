@@ -15,27 +15,27 @@ import { isDateValid } from './../../utils';
 
 const SubValuesType = new GraphQLObjectType({
   name: 'SubValues',
-  description: 'Some Description',
+  description: 'Base type for subvalues.',
   fields: () => ({
     in: {
       type: GraphQLInt,
-      description: 'Some Description',
+      description: 'Value increased on date.',
     },
     out: {
       type: GraphQLInt,
-      description: 'Some Description',
+      description: 'Value decreased on date.',
     },
     deceased: {
       type: GraphQLInt,
-      description: 'Some Description',
+      description: 'Number of the deaths on date.',
     },
     positive: {
       type: GraphQLInt,
-      description: 'Some Description',
+      description: 'Number of positive tests',
     },
     percent: {
       type: GraphQLFloat,
-      description: 'Some Description',
+      description: 'Have no idea how they calculate percent.',
     },
   }),
   resolve: (root, ...rest) => {
@@ -45,7 +45,7 @@ const SubValuesType = new GraphQLObjectType({
 
 export const SharedInterface = new GraphQLInterfaceType({
   name: 'Shared',
-  description: 'Some Description',
+  description: 'Represents shared fields.',
   fields: () => ({
     date: {
       type: GraphQLNonNull(GraphQLDateTime),
@@ -61,7 +61,7 @@ export const SharedInterface = new GraphQLInterfaceType({
     },
     subValues: { type: SubValuesType },
   }),
-  resolveType(shared, _context, _info) {
+  resolveType(shared, _, __) {
     if (shared.sublabel) {
       return CasesWithSublabelType;
     }
@@ -70,6 +70,8 @@ export const SharedInterface = new GraphQLInterfaceType({
 });
 
 const sharedFields = {
+  value: { type: GraphQLFloat, description: 'Some description' },
+  diffPercentage: { type: GraphQLFloat, description: 'Some description' },
   subValues: {
     type: SubValuesType,
     resolve: (rootValue, _, __, info) => {
@@ -79,7 +81,7 @@ const sharedFields = {
   },
   date: {
     type: GraphQLNonNull(GraphQLDateTime),
-    description: 'Some Description',
+    description: 'Represents the date on which data was collected.',
     resolve: (root, _, __, info) => {
       const { variableValues } = info;
       let { date } = root;
@@ -104,7 +106,7 @@ const sharedFields = {
 
 export const CasesType = new GraphQLObjectType({
   name: 'CasesToDate',
-  description: 'Some Description',
+  description: 'Data for 6 Summary classes',
   fields: () => ({
     ...sharedFields,
   }),
@@ -113,7 +115,7 @@ export const CasesType = new GraphQLObjectType({
 
 export const CasesWithSublabelType = new GraphQLObjectType({
   name: 'CasesAvg7Days',
-  description: 'Some Description',
+  description: 'Data for specific Summary class. Includes <<sublabel>> field.',
   fields: () => ({
     ...sharedFields,
     sublabel: {
@@ -133,7 +135,7 @@ const cacheResolver = (fieldName = true) => (rootValue, _, __, info) => {
 };
 export const SummaryType = new GraphQLObjectType({
   name: 'Summary',
-  description: 'Some description',
+  description: 'Includes all data received from path /summary',
   fields: () => ({
     date: {
       type: GraphQLNonNull(GraphQLDateTime),
