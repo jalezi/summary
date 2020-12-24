@@ -2,7 +2,7 @@ import { fetchSummaryResolver } from '../../utils';
 import {
   DateInputType,
   SummaryType,
-  SharedInterface,
+  CasesType,
   PropertiesType,
 } from '../types';
 // import { traceResolver } from '../../traceResolver';
@@ -17,7 +17,7 @@ export const summaryQueries = {
     resolve: fetchSummaryResolver,
   },
   Shared: {
-    type: SharedInterface,
+    type: CasesType,
     args: {
       date: { type: DateInputType, description: 'Some Description' },
       property: { type: PropertiesType, defaultValue: 'casesToDateSummary' },

@@ -43,8 +43,8 @@ const SubValuesType = new GraphQLObjectType({
   },
 });
 
-export const SharedInterface = new GraphQLInterfaceType({
-  name: 'Shared',
+export const CasesType = new GraphQLInterfaceType({
+  name: 'Cases',
   description: 'Represents shared fields.',
   fields: () => ({
     name: {
@@ -65,9 +65,9 @@ export const SharedInterface = new GraphQLInterfaceType({
   }),
   resolveType(shared, _, __) {
     if (shared.sublabel) {
-      return CasesWithSublabelType;
+      return CasesSublabelType;
     }
-    return CasesType;
+    return CasesSubValuesType;
   },
 });
 
@@ -103,8 +103,8 @@ const sharedFields = {
   },
 };
 
-export const CasesType = new GraphQLObjectType({
-  name: 'CasesToDate',
+export const CasesSubValuesType = new GraphQLObjectType({
+  name: 'CasesSubValues',
   description: 'Data for 6 Summary classes',
   fields: () => ({
     ...sharedFields,
@@ -116,11 +116,11 @@ export const CasesType = new GraphQLObjectType({
       },
     },
   }),
-  interfaces: [SharedInterface],
+  interfaces: [CasesType],
 });
 
-export const CasesWithSublabelType = new GraphQLObjectType({
-  name: 'CasesAvg7Days',
+export const CasesSublabelType = new GraphQLObjectType({
+  name: 'CasesSublabel',
   description: 'Data for specific Summary class. Includes <<sublabel>> field.',
   fields: () => ({
     ...sharedFields,
@@ -129,7 +129,7 @@ export const CasesWithSublabelType = new GraphQLObjectType({
       description: 'Some Description',
     },
   }),
-  interfaces: [SharedInterface],
+  interfaces: [CasesType],
 });
 
 const cacheResolver = (fieldName = true) => (rootValue, _, __, info) => {
@@ -149,42 +149,42 @@ export const SummaryType = new GraphQLObjectType({
     },
 
     casesToDateSummary: {
-      type: CasesType,
+      type: CasesSubValuesType,
       description: 'Some Description',
       resolve: cacheResolver(),
     },
     casesActive: {
-      type: CasesType,
+      type: CasesSubValuesType,
       description: 'Some Description',
       resolve: cacheResolver(),
     },
     casesAvg7Days: {
-      type: CasesWithSublabelType,
+      type: CasesSublabelType,
       description: 'Some Description',
       resolve: cacheResolver(),
     },
     hospitalizedCurrent: {
-      type: CasesType,
+      type: CasesSubValuesType,
       description: 'Some Description',
       resolve: cacheResolver(),
     },
     icuCurrent: {
-      type: CasesType,
+      type: CasesSubValuesType,
       description: 'Some Description',
       resolve: cacheResolver(),
     },
     deceasedToDate: {
-      type: CasesType,
+      type: CasesSubValuesType,
       description: 'Some Description',
       resolve: cacheResolver(),
     },
     testsToday: {
-      type: CasesType,
+      type: CasesSubValuesType,
       description: 'Some Description',
       resolve: cacheResolver(),
     },
     testsTodayHAT: {
-      type: CasesType,
+      type: CasesSubValuesType,
       description: 'Some Description',
       resolve: cacheResolver(),
     },
