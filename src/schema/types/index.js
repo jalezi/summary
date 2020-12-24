@@ -59,7 +59,6 @@ export const SharedInterface = new GraphQLInterfaceType({
       type: GraphQLFloat,
       description: 'Some Description',
     },
-    subValues: { type: SubValuesType },
   }),
   resolveType(shared, _, __) {
     if (shared.sublabel) {
@@ -72,13 +71,7 @@ export const SharedInterface = new GraphQLInterfaceType({
 const sharedFields = {
   value: { type: GraphQLFloat, description: 'Some description' },
   diffPercentage: { type: GraphQLFloat, description: 'Some description' },
-  subValues: {
-    type: SubValuesType,
-    resolve: (rootValue, _, __, info) => {
-      info.cacheControl.setCacheHint({ maxAge: 60, scope: 'PRIVATE' });
-      return rootValue[info.fieldName];
-    },
-  },
+
   date: {
     type: GraphQLNonNull(GraphQLDateTime),
     description: 'Represents the date on which data was collected.',
@@ -109,6 +102,13 @@ export const CasesType = new GraphQLObjectType({
   description: 'Data for 6 Summary classes',
   fields: () => ({
     ...sharedFields,
+    subValues: {
+      type: SubValuesType,
+      resolve: (rootValue, _, __, info) => {
+        info.cacheControl.setCacheHint({ maxAge: 60, scope: 'PRIVATE' });
+        return rootValue[info.fieldName];
+      },
+    },
   }),
   interfaces: [SharedInterface],
 });
