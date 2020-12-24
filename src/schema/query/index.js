@@ -22,9 +22,14 @@ export const summaryQueries = {
       date: { type: DateInputType, description: 'Some Description' },
       property: { type: PropertiesType, defaultValue: 'casesToDateSummary' },
     },
-    resolve: async (root, args, context, info) => {
-      const res = await fetchSummaryResolver(root, args, context, info);
-      return { date: res.date, ...res[args.property] };
+    resolve: async (root, { date, property }, context, info) => {
+      const res = await fetchSummaryResolver(
+        root,
+        { date, property },
+        context,
+        info
+      );
+      return { name: property, date: res.date, ...res[property] };
     },
   },
 };

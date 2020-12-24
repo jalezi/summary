@@ -47,6 +47,9 @@ export const SharedInterface = new GraphQLInterfaceType({
   name: 'Shared',
   description: 'Represents shared fields.',
   fields: () => ({
+    name: {
+      type: GraphQLString,
+    },
     date: {
       type: GraphQLNonNull(GraphQLDateTime),
       description: 'Some Description',
@@ -69,6 +72,9 @@ export const SharedInterface = new GraphQLInterfaceType({
 });
 
 const sharedFields = {
+  name: {
+    type: GraphQLString,
+  },
   value: { type: GraphQLFloat, description: 'Some description' },
   diffPercentage: { type: GraphQLFloat, description: 'Some description' },
 
