@@ -69,3 +69,11 @@ export const writeSchemaToFile = graphqlSchema => {
   fs.writeFileSync('./schema.graphql', schema, cb);
   fs.writeFile('./introspection-schema.graphql', introspectionSchema, cb);
 };
+
+export const getToday = () => {
+  const date = new Date();
+  const year = date.getFullYear();
+  const month = date.getMonth() + 1;
+  const day = date.getDate();
+  return { year, month, day };
+};
