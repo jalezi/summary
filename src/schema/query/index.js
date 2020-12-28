@@ -16,10 +16,15 @@ export const summaryQueries = {
     },
     resolve: fetchSummaryResolver,
   },
-  Shared: {
+  getCases: {
     type: CasesType,
+    description: 'Returns specific summary data.',
     args: {
-      date: { type: DateInputType, description: 'Some Description' },
+      date: {
+        type: DateInputType,
+        description:
+          'Represents date. Default value is today. Example: {year: 2020, month: 12, day: 25',
+      },
       property: { type: PropertiesType, defaultValue: 'casesToDateSummary' },
     },
     resolve: async (root, { date, property }, context, info) => {
