@@ -1,4 +1,4 @@
-import { fetchSummaryResolver } from '../../utils';
+import { fetchSummaryResolver, getToday } from '../../utils';
 import {
   DateInputType,
   SummaryType,
@@ -24,6 +24,7 @@ export const summaryQueries = {
         type: DateInputType,
         description:
           'Represents date. Default value is today. Example: {year: 2020, month: 12, day: 25',
+        defaultValue: getToday(),
       },
       property: { type: PropertiesType, defaultValue: 'casesToDateSummary' },
     },
