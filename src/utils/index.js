@@ -10,7 +10,7 @@ export const isDateValid = (...val) =>
   !Number.isNaN(new Date(...val).valueOf());
 const isNotNull = val => val !== null;
 
-const fetchSummary = async url => {
+const fetchApi = async url => {
   const res = await fetch(url);
   const json = await res.json();
   return json;
@@ -29,7 +29,7 @@ export const fetchSummaryResolver = async (_root, args, context, info) => {
     ? `${SUMMARY_URL}?${TO_DATE_PARAM}=${dateString}`
     : SUMMARY_URL;
 
-  const json = await fetchSummary(url);
+  const json = await fetchApi(url);
 
   const today = new Date();
   const t_year = today.getFullYear();
