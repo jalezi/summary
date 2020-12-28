@@ -10,7 +10,7 @@ import {
 export const summaryQueries = {
   Summary: {
     type: SummaryType,
-    description: 'Some description.',
+    description: 'Returns all summary data.',
     args: {
       date: { type: DateInputType },
     },
