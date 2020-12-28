@@ -70,10 +70,15 @@ export const writeSchemaToFile = graphqlSchema => {
   fs.writeFile('./introspection-schema.graphql', introspectionSchema, cb);
 };
 
-export const getToday = () => {
-  const date = new Date();
+const createDateObj = date => {
   const year = date.getFullYear();
   const month = date.getMonth() + 1;
   const day = date.getDate();
   return { year, month, day };
 };
+
+export const getToday = () => {
+  const date = new Date();
+  return createDateObj(date);
+};
+
