@@ -2,12 +2,17 @@ import fetch from 'node-fetch';
 import { printIntrospectionSchema, printSchema, GraphQLSchema } from 'graphql';
 
 const BASE_URL = 'https://api.sledilnik.org/api';
+const STATS_PATH = 'Stats';
 const SUMMARY_PATH = 'summary';
+const FROM_PARAM = 'from';
+const TO_PARAM = 'to';
 const TO_DATE_PARAM = 'toDate';
+const STATS_URL = `${BASE_URL}/${STATS_PATH}`;
 const SUMMARY_URL = `${BASE_URL}/${SUMMARY_PATH}`;
 
 export const isDateValid = (...val) =>
   !Number.isNaN(new Date(...val).valueOf());
+
 const isNotNull = val => val !== null;
 
 const fetchApi = async url => {
