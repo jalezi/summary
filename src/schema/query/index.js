@@ -5,7 +5,6 @@ import {
   CasesType,
   PropertiesType,
 } from '../types';
-// import { traceResolver } from '../../traceResolver';
 
 export const summaryQueries = {
   Summary: {
