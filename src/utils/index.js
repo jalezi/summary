@@ -82,6 +82,12 @@ export const getToday = () => {
   return createDateObj(date);
 };
 
+export const getYesterday = () => {
+  const now = Date.now();
+  const yesterday = now - 24 * 60 * 60 * 1000;
+  const date = new Date(yesterday);
+  return createDateObj(date);
+};
 
 export const getDateString = ({ year, month, day }) => {
   return `${year}/${month}/${day}`;
