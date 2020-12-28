@@ -31,11 +31,11 @@ const SubValuesType = new GraphQLObjectType({
     },
     positive: {
       type: GraphQLInt,
-      description: 'Number of positive tests',
+      description: 'Number of positive tests on date.',
     },
     percent: {
       type: GraphQLFloat,
-      description: 'Have no idea how they calculate percent.',
+      description: 'Percent of all tests on date.',
     },
   }),
   resolve: (root, ...rest) => {
@@ -49,18 +49,21 @@ export const CasesType = new GraphQLInterfaceType({
   fields: () => ({
     name: {
       type: GraphQLString,
+      description: 'Property name.',
     },
     date: {
       type: GraphQLNonNull(GraphQLDateTime),
-      description: 'Some Description',
+      description: 'Represents the date on which data was collected.',
     },
     value: {
       type: GraphQLFloat,
-      description: 'Some Description',
+      description:
+        'Number od cases for specific summary property. For 6 properties is integer and for 1 (average) is float.',
     },
     diffPercentage: {
       type: GraphQLFloat,
-      description: 'Some Description',
+      description:
+        'Represents difference in percent comparing to the day before.',
     },
   }),
   resolveType(shared, _, __) {
@@ -74,9 +77,18 @@ export const CasesType = new GraphQLInterfaceType({
 const sharedFields = {
   name: {
     type: GraphQLString,
+    description: 'Property name.',
   },
-  value: { type: GraphQLFloat, description: 'Some description' },
-  diffPercentage: { type: GraphQLFloat, description: 'Some description' },
+  value: {
+    type: GraphQLFloat,
+    description:
+      'Number od cases for specific summary property. For 6 properties is integer and for 1 (average) is float.',
+  },
+  diffPercentage: {
+    type: GraphQLFloat,
+    description:
+      'Represents difference in percent comparing to the day before.',
+  },
 
   date: {
     type: GraphQLNonNull(GraphQLDateTime),
@@ -105,7 +117,7 @@ const sharedFields = {
 
 export const CasesSubValuesType = new GraphQLObjectType({
   name: 'CasesSubValues',
-  description: 'Data for 6 Summary classes',
+  description: 'Data for 6 summary properties. Includes <<subValues>>',
   fields: () => ({
     ...sharedFields,
     subValues: {
@@ -121,12 +133,13 @@ export const CasesSubValuesType = new GraphQLObjectType({
 
 export const CasesSublabelType = new GraphQLObjectType({
   name: 'CasesSublabel',
-  description: 'Data for specific Summary class. Includes <<sublabel>> field.',
+  description:
+    'Data for specific summary property. Includes <<sublabel>> field.',
   fields: () => ({
     ...sharedFields,
     sublabel: {
       type: GraphQLBoolean,
-      description: 'Some Description',
+      description: 'Have no idea at the moment',
     },
   }),
   interfaces: [CasesType],
@@ -145,47 +158,47 @@ export const SummaryType = new GraphQLObjectType({
   fields: () => ({
     date: {
       type: GraphQLNonNull(GraphQLDateTime),
-      description: 'Some Description',
+      description: 'Represents date on which was data collected.',
     },
 
     casesToDateSummary: {
       type: CasesSubValuesType,
-      description: 'Some Description',
+      description: 'Represents absolute number of covid positive.',
       resolve: cacheResolver(),
     },
     casesActive: {
       type: CasesSubValuesType,
-      description: 'Some Description',
+      description: 'Represents number of active positive.',
       resolve: cacheResolver(),
     },
     casesAvg7Days: {
       type: CasesSublabelType,
-      description: 'Some Description',
+      description: 'Represents 7 days average of new positive.',
       resolve: cacheResolver(),
     },
     hospitalizedCurrent: {
       type: CasesSubValuesType,
-      description: 'Some Description',
+      description: 'Represents number of hospitalized positive.',
       resolve: cacheResolver(),
     },
     icuCurrent: {
       type: CasesSubValuesType,
-      description: 'Some Description',
+      description: 'Represents number of positive in intensive care unit.',
       resolve: cacheResolver(),
     },
     deceasedToDate: {
       type: CasesSubValuesType,
-      description: 'Some Description',
+      description: 'Represents number of deceased.',
       resolve: cacheResolver(),
     },
     testsToday: {
       type: CasesSubValuesType,
-      description: 'Some Description',
+      description: 'Represents number of made PCR tests.',
       resolve: cacheResolver(),
     },
     testsTodayHAT: {
       type: CasesSubValuesType,
-      description: 'Some Description',
+      description: 'Represents number of made HAT tests.',
       resolve: cacheResolver(),
     },
   }),
@@ -193,7 +206,7 @@ export const SummaryType = new GraphQLObjectType({
 
 export const DateInputType = new GraphQLInputObjectType({
   name: 'DateInput',
-  description: 'Some Description',
+  description: 'Represents the date when data was collected.',
   fields: () => ({
     year: {
       type: GraphQLInt,
@@ -215,41 +228,34 @@ export const DateInputType = new GraphQLInputObjectType({
 
 export const PropertiesType = new GraphQLEnumType({
   name: 'Properties',
-  description: 'Some Description',
+  description: 'Possible property names (keys) received from api path. ',
   values: {
     casesToDateSummary: {
       value: 'casesToDateSummary',
       type: GraphQLString,
-      description: 'Some Description',
     },
     casesActive: {
       value: 'casesActive',
       type: GraphQLString,
-      description: 'Some Description',
     },
     casesAvg7Days: {
       value: 'casesAvg7Days',
-      description: 'Some Description',
       type: GraphQLString,
     },
     hospitalizedCurrent: {
       value: 'hospitalizedCurrent',
-      description: 'Some Description',
       type: GraphQLString,
     },
     icuCurrent: {
       value: 'icuCurrent',
-      description: 'Some Description',
       type: GraphQLString,
     },
     deceasedToDate: {
       value: 'deceasedToDate',
-      description: 'Some Description',
       type: GraphQLString,
     },
     testsToday: {
       value: 'testsToday',
-      description: 'Some Description',
       type: GraphQLString,
     },
   },
