@@ -50,6 +50,22 @@ export const fetchSummaryResolver = async (_root, args, context, info) => {
   };
 };
 
+export const fetchStatsResolver = async (_, args, __, info) => {
+  const today = getToday();
+  const yesterday = getYesterday();
+
+  const { from, to } = args;
+
+  const fromAsString = from ? getDateString(from) : getDateString(yesterday);
+  const toAsString = to ? getDateString(to) : getDateString(today);
+
+  const url = `${STATS_URL}?${FROM_PARAM}=${fromAsString}&${TO_PARAM}=${toAsString}`;
+  const json = await fetchApi(url);
+
+  info.cacheControl.setCacheHint({ maxAge: 60, scope: 'PRIVATE' });
+  return json;
+};
+
 export const writeSchemaToFile = graphqlSchema => {
   if (!graphqlSchema) {
     return new Error('No graphql schema provided!');
