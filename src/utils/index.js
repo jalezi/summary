@@ -30,8 +30,6 @@ export const fetchSummaryResolver = async (_root, args, context, info) => {
 
   const isArgsDateValid = isDateValid(argsDateString);
 
-  console.log(isArgsDateValid);
-
   const paramDateString = isArgsDateValid ? argsDateString : todayDateString;
 
   const date = isArgsDateValid
