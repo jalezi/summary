@@ -22,25 +22,27 @@ const fetchApi = async url => {
 };
 
 export const fetchSummaryResolver = async (_root, args, context, info) => {
-  const { year: _year, month: _month, day: _day } = args.date ? args.date : {};
-  const _date = isDateValid(`${_year}/${_month}/${_day}`)
-    ? new Date(Date.UTC(_year, _month - 1, _day))
-    : null;
-  const dateIsNotNull = isNotNull(_date);
+  const { year, month, day } = args.date ? args.date : {};
+  const argsUTCValues = [year, month - 1, day];
+  const argsDateString = getDateString({ year, month, day });
 
-  const dateString = dateIsNotNull ? `${_year}/${_month}/${_day}` : null;
+  const today = getToday();
+  const todayUTCValues = [today.year, today.month - 1, today.day];
+  const todayDateString = getDateString(today);
 
-  const url = dateIsNotNull
-    ? `${SUMMARY_URL}?${TO_DATE_PARAM}=${dateString}`
-    : SUMMARY_URL;
+  const isArgsDateValid = isDateValid(argsDateString);
+
+  console.log(isArgsDateValid);
+
+  const paramDateString = isArgsDateValid ? argsDateString : todayDateString;
+
+  const date = isArgsDateValid
+    ? new Date(Date.UTC(...argsUTCValues))
+    : new Date(Date.UTC(...todayUTCValues));
+
+  const url = `${SUMMARY_URL}?${TO_DATE_PARAM}=${paramDateString}`;
 
   const json = await fetchApi(url);
-
-  const today = new Date();
-  const t_year = today.getFullYear();
-  const t_month = today.getMonth();
-  const t_day = today.getDate();
-  const date = _date ? _date : new Date(Date.UTC(t_year, t_month, t_day));
 
   info.cacheControl.setCacheHint({ maxAge: 60, scope: 'PRIVATE' });
 
