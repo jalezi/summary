@@ -1,4 +1,5 @@
-import { fetchSummaryResolver, fetchStatsResolver } from '../../utils';
+import { GraphQLList } from 'graphql';
+
 import {
   DateInputType,
   SummaryType,
@@ -6,7 +7,10 @@ import {
   PropertiesType,
 } from '../types';
 import { OnDateStats } from '../types/stats';
-import { GraphQLList } from 'graphql';
+import { SummaryResolvers, StatsResolvers } from '../resolvers';
+
+const { fetchSummaryResolver } = SummaryResolvers;
+const { fetchStatsResolver } = StatsResolvers;
 
 export const summaryQueries = {
   Summary: {

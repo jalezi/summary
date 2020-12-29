@@ -1,66 +1,12 @@
 import fetch from 'node-fetch';
 import { printIntrospectionSchema, printSchema, GraphQLSchema } from 'graphql';
 
-const BASE_URL = 'https://api.sledilnik.org/api';
-const STATS_PATH = 'Stats';
-const SUMMARY_PATH = 'summary';
-const FROM_PARAM = 'from';
-const TO_PARAM = 'to';
-const TO_DATE_PARAM = 'toDate';
-const STATS_URL = `${BASE_URL}/${STATS_PATH}`;
-const SUMMARY_URL = `${BASE_URL}/${SUMMARY_PATH}`;
-
 export const isDateValid = (...val) =>
   !Number.isNaN(new Date(...val).valueOf());
 
-const fetchApi = async url => {
+export const fetchApi = async url => {
   const res = await fetch(url);
   const json = await res.json();
-  return json;
-};
-
-export const fetchSummaryResolver = async (_root, args, context, info) => {
-  const { year, month, day } = args.date ? args.date : {};
-  const argsUTCValues = [year, month - 1, day];
-  const argsDateString = getDateString({ year, month, day });
-
-  const today = getToday();
-  const todayUTCValues = [today.year, today.month - 1, today.day];
-  const todayDateString = getDateString(today);
-
-  const isArgsDateValid = isDateValid(argsDateString);
-
-  const paramDateString = isArgsDateValid ? argsDateString : todayDateString;
-
-  const date = isArgsDateValid
-    ? new Date(Date.UTC(...argsUTCValues))
-    : new Date(Date.UTC(...todayUTCValues));
-
-  const url = `${SUMMARY_URL}?${TO_DATE_PARAM}=${paramDateString}`;
-
-  const json = await fetchApi(url);
-
-  info.cacheControl.setCacheHint({ maxAge: 60, scope: 'PRIVATE' });
-
-  return {
-    date,
-    ...json,
-  };
-};
-
-export const fetchStatsResolver = async (_, args, __, info) => {
-  const today = getToday();
-  const yesterday = getYesterday();
-
-  const { from, to } = args;
-
-  const fromAsString = from ? getDateString(from) : getDateString(yesterday);
-  const toAsString = to ? getDateString(to) : getDateString(today);
-
-  const url = `${STATS_URL}?${FROM_PARAM}=${fromAsString}&${TO_PARAM}=${toAsString}`;
-  const json = await fetchApi(url);
-
-  info.cacheControl.setCacheHint({ maxAge: 60, scope: 'PRIVATE' });
   return json;
 };
 
