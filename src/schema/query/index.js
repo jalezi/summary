@@ -5,8 +5,8 @@ import {
   SummaryType,
   CasesType,
   PropertiesType,
+  OnDateStats,
 } from '../types';
-import { OnDateStats } from '../types/stats';
 import { SummaryResolvers, StatsResolvers } from '../resolvers';
 
 const { fetchSummaryResolver } = SummaryResolvers;
