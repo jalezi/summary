@@ -13,8 +13,6 @@ const SUMMARY_URL = `${BASE_URL}/${SUMMARY_PATH}`;
 export const isDateValid = (...val) =>
   !Number.isNaN(new Date(...val).valueOf());
 
-const isNotNull = val => val !== null;
-
 const fetchApi = async url => {
   const res = await fetch(url);
   const json = await res.json();
