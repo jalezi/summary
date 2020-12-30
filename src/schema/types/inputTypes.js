@@ -7,17 +7,14 @@ export const DateInputType = new GraphQLInputObjectType({
     year: {
       type: GraphQLInt,
       description: 'Year, Integer',
-      defaultValue: new Date().getFullYear(),
     },
     month: {
       type: GraphQLInt,
       description: 'Month, format M',
-      defaultValue: new Date().getMonth() + 1,
     },
     day: {
       type: GraphQLInt,
       description: 'Day, format D',
-      defaultValue: new Date().getDate(),
     },
   }),
 });
