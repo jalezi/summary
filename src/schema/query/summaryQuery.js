@@ -13,7 +13,11 @@ export const summaryQueries = {
     type: SummaryType,
     description: 'Returns all summary data.',
     args: {
-      date: { type: DateInputType },
+      date: {
+        type: DateInputType,
+        description:
+          'Represents date. Default value is today. Example: {year: 2020, month: 12, day: 25',
+      },
     },
     resolve: fetchSummaryResolver,
   },
