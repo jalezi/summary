@@ -1,13 +1,13 @@
 import { GraphQLList } from 'graphql';
 
-import { DateInputType, OnDateStats } from '../types';
+import { DateInputType, OnDateStatsType } from '../types';
 import { StatsResolvers } from '../resolvers';
 
 const { fetchStatsResolver } = StatsResolvers;
 
 export const statsQueries = {
   onDateStats: {
-    type: GraphQLList(OnDateStats),
+    type: GraphQLList(OnDateStatsType),
     args: {
       from: {
         type: DateInputType,

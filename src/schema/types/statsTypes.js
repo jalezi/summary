@@ -189,7 +189,7 @@ const DeceasedPerType = new GraphQLObjectType({
   }),
 });
 
-export const OnDateStats = new GraphQLObjectType({
+export const OnDateStatsType = new GraphQLObjectType({
   name: 'OnDate',
   fields: () => ({
     date: {
