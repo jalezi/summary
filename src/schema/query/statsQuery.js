@@ -60,9 +60,10 @@ export const statsQueries = {
 
       const from = new Date(Date.UTC(f_year, f_month - 1, f_day));
       const to = new Date(Date.UTC(t_year, t_month - 1, t_day));
+      const datesSpan = (to - from) / (24 * 60 * 60 * 1000) + 1;
       const dataLength = res.length;
       const data = [...res];
-      return { from, to, dataLength, data };
+      return { from, to, datesSpan, dataLength, data };
     },
   },
 };

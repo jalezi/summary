@@ -263,6 +263,7 @@ export const StatsFromToType = new GraphQLObjectType({
   fields: () => ({
     from: { type: GraphQLDateTime },
     to: { type: GraphQLDateTime },
+    datesSpan: { type: GraphQLInt },
     dataLength: { type: GraphQLInt },
     data: {
       type: new GraphQLList(OnDateStatsType),
