@@ -7,7 +7,7 @@ import { getYesterday, getToday } from '../../utils';
 const { fetchStatsResolver } = StatsResolvers;
 
 export const statsQueries = {
-  onDateStats: {
+  FromToStats: {
     type: GraphQLList(OnDateStatsType),
     description: `Returns data from api path stats in range defined with params <from> and <to>. 
     If params are omitted <from> is set for yesterday and <to> is set to today.
@@ -30,7 +30,7 @@ export const statsQueries = {
       return res;
     },
   },
-  onDateStatsSpecial: {
+  FromToStatsExtra: {
     type: StatsFromToType,
     description: `Returns data from api path stats in range defined with params <from> and <to>. 
     If params are omitted <from> is set for yesterday and <to> is set to today.
