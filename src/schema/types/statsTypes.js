@@ -6,6 +6,7 @@ import {
 } from 'graphql';
 import { GraphQLDateTime } from 'graphql-iso-date';
 import { GraphQLJSONObject } from 'graphql-type-json';
+import cacheResolver from '../resolvers/cacheResolver';
 
 const TestDataValuesType = new GraphQLObjectType({
   name: 'TestDataValues',
@@ -235,18 +236,23 @@ export const OnDateStatsType = new GraphQLObjectType({
     },
     cases: {
       type: StatsCasesType,
+      resolve: cacheResolver(),
     },
     statePerTreatment: {
       type: StatePerTreatmentType,
+      resolve: cacheResolver(),
     },
     statePerRegion: {
       type: StatePerRegionType,
+      resolve: cacheResolver(),
     },
     statePerAgeToDate: {
       type: new GraphQLList(PerAgeToDateType),
+      resolve: cacheResolver(),
     },
     deceasedPerAgeToDate: {
       type: new GraphQLList(PerAgeToDateType),
+      resolve: cacheResolver(),
     },
     deceasedPerType: { type: DeceasedPerType },
   }),
@@ -260,6 +266,7 @@ export const StatsFromToType = new GraphQLObjectType({
     dataLength: { type: GraphQLInt },
     data: {
       type: new GraphQLList(OnDateStatsType),
+      resolve: cacheResolver(),
     },
   }),
 });
