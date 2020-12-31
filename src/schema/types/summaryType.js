@@ -11,6 +11,7 @@ import {
 } from 'graphql';
 
 import { isDateValid } from './../../utils';
+import cacheResolver from '../resolvers/cacheResolver';
 
 const SubValuesType = new GraphQLObjectType({
   name: 'SubValues',
@@ -121,10 +122,7 @@ export const CasesSubValuesType = new GraphQLObjectType({
     ...sharedFields,
     subValues: {
       type: SubValuesType,
-      resolve: (rootValue, _, __, info) => {
-        info.cacheControl.setCacheHint({ maxAge: 60, scope: 'PRIVATE' });
-        return rootValue[info.fieldName];
-      },
+      resolve: cacheResolver(),
     },
   }),
   interfaces: [CasesType],
@@ -144,13 +142,6 @@ export const CasesSublabelType = new GraphQLObjectType({
   interfaces: [CasesType],
 });
 
-const cacheResolver = (fieldName = true) => (rootValue, _, __, info) => {
-  info.cacheControl.setCacheHint({ maxAge: 60, scope: 'PRIVATE' });
-  if (fieldName) {
-    return rootValue[info.fieldName];
-  }
-  return rootValue;
-};
 export const SummaryType = new GraphQLObjectType({
   name: 'Summary',
   description: 'Includes all data received from path /summary',
