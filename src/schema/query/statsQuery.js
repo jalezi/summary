@@ -24,8 +24,9 @@ export const statsQueries = {
           'Represents date. Default value is today. Example: {year: 2020, month: 12, day: 25',
       },
     },
-    resolve: async (...all) => {
-      const res = await fetchStatsResolver(...all);
+    resolve: async (_root, _args, _context, info) => {
+      info.cacheControl.setCacheHint({ maxAge: 60, scope: 'PRIVATE' });
+      const res = await fetchStatsResolver(_root, _args, _context, info);
       return res;
     },
   },
@@ -46,11 +47,13 @@ export const statsQueries = {
           'Represents date. Default value is today. Example: {year: 2020, month: 12, day: 25',
       },
     },
-    resolve: async (root, args, ...rest) => {
+    resolve: async (root, args, _context, info) => {
+      info.cacheControl.setCacheHint({ maxAge: 60, scope: 'PRIVATE' });
+
       args.from = args.from ? args.from : getYesterday();
       args.to = args.to ? args.to : getToday();
 
-      const res = await fetchStatsResolver(root, args, ...rest);
+      const res = await fetchStatsResolver(root, args, _context, info);
 
       const { year: f_year, month: f_month, day: f_day } = args.from;
       const { year: t_year, month: t_month, day: t_day } = args.to;
