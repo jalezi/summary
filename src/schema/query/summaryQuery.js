@@ -21,7 +21,7 @@ export const summaryQueries = {
     },
     resolve: fetchSummaryResolver,
   },
-  getCases: {
+  SummaryProperty: {
     type: CasesType,
     description: 'Returns specific summary data.',
     args: {
