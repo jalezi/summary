@@ -12,11 +12,12 @@ This is simple GraphQL server: [Covid19-sledilnik](https://covid-19.sledilnik.or
 ### SUMMARY
 
 - Summary,
-- getCases
+- SummaryProperty
 
 ### STATS
 
-- onDateStats
+- FromToStats
+- FromToStatsExtra
 
 ## Resources
 
