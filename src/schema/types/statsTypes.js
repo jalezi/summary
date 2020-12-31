@@ -251,3 +251,15 @@ export const OnDateStatsType = new GraphQLObjectType({
     deceasedPerType: { type: DeceasedPerType },
   }),
 });
+
+export const StatsFromToType = new GraphQLObjectType({
+  name: 'StatsFromTo',
+  fields: () => ({
+    from: { type: GraphQLDateTime },
+    to: { type: GraphQLDateTime },
+    dataLength: { type: GraphQLInt },
+    data: {
+      type: new GraphQLList(OnDateStatsType),
+    },
+  }),
+});
