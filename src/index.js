@@ -5,6 +5,9 @@ import { graphqlSchema } from './schema';
 
 dotenv.config();
 
+process.env.NODE_ENV = process.env.NODE_ENV || 'development';
+const isDev = process.env.NODE_ENV === 'development';
+
 const app = express();
 
 const server = new ApolloServer({
@@ -34,8 +37,9 @@ const server = new ApolloServer({
 
 server.applyMiddleware({ app });
 
-app.listen({ port: 4000 }, () => {
-  console.log(
-    `🚀  GraphQL Server ready at http://localhost:4000${server.graphqlPath}`
-  );
+app.listen({ port: process.env.PORT || 4000 }, () => {
+  isDev &&
+    console.log(
+      `🚀  GraphQL Server ready at http://localhost:4000${server.graphqlPath}`
+    );
 });
