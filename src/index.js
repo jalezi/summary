@@ -14,6 +14,8 @@ const server = new ApolloServer({
   },
   tracing: true,
   cacheControl: true,
+  playground: true,
+  introspection: true,
   formatResponse(res, req) {
     const { context } = req;
     const { startTime } = context;
