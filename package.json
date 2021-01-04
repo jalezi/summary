@@ -2,9 +2,14 @@
   "name": "sledilnik-graphql-summary",
   "version": "1.0.0",
   "description": "GraphQL Server Sledilnik Rest API - summary endpoint",
+  "engines": {
+    "node": "12.x"
+  },
   "scripts": {
     "build": "npm run clean && babel ./src -d dist",
-    "clean": "RMDIR /Q/S dist && mkdir dist",
+    "clean": "rm -rf dist && mkdir dist",
+    "build-win": "npm run clean-win && babel ./src -d dist",
+    "clean-win": "RMDIR /Q/S dist && mkdir dist",
     "start": "node dist/index.js",
     "start-nodemon": "nodemon --exec babel-node src/index.js",
     "test": "mocha --require @babel/register"
