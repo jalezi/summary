@@ -71,7 +71,7 @@ server.applyMiddleware({
   app: app
 });
 app.listen({
-  port: 4000
+  port: process.env.PORT || 4000
 }, function () {
   console.log("\uD83D\uDE80  GraphQL Server ready at http://localhost:4000".concat(server.graphqlPath));
 });
