@@ -150,7 +150,11 @@ export const SummaryType = new GraphQLObjectType({
       type: GraphQLNonNull(GraphQLDateTime),
       description: 'Represents date on which was data collected.',
     },
-
+    vaccinationSummary: {
+      type: CasesSublabelType,
+      description: 'Represents number of vaccinated persons.',
+      resolve: cacheResolver(),
+    },
     casesToDateSummary: {
       type: CasesSubValuesType,
       description: 'Represents absolute number of covid positive.',
@@ -195,9 +199,13 @@ export const SummaryType = new GraphQLObjectType({
 });
 
 export const PropertiesType = new GraphQLEnumType({
-  name: 'Properties',
+  name: 'SummaryProperties',
   description: 'Possible property names (keys) received from api path. ',
   values: {
+    vaccinationSummary: {
+      value: 'vaccinationSummary',
+      type: GraphQLString,
+    },
     casesToDateSummary: {
       value: 'casesToDateSummary',
       type: GraphQLString,
