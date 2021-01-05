@@ -1,8 +1,10 @@
 # Sledilnik GraphQL Server
 
-This is simple GraphQL server: [Covid19-sledilnik](https://covid-19.sledilnik.org/).
+This is simple [GraphQL server](https://sledilnik-graphql.herokuapp.com/graphql).
 
-## Paths
+Inspired by [Covid19-sledilnik](https://covid-19.sledilnik.org/).
+
+## Sledilnik REST paths
 
 - [SUMMARY](https://api.sledilnik.org/api/summary),
 - [STATS](https://api.sledilnik.org/api/stats)
