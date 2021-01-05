@@ -199,7 +199,7 @@ export const SummaryType = new GraphQLObjectType({
 });
 
 export const PropertiesType = new GraphQLEnumType({
-  name: 'Properties',
+  name: 'SummaryProperties',
   description: 'Possible property names (keys) received from api path. ',
   values: {
     vaccinationSummary: {
