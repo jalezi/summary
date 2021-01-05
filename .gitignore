@@ -2,3 +2,4 @@
 /.vscode
 /apollo.config.js
 /node_modules
+/dist
