@@ -1,11 +1,11 @@
 import { GraphQLObjectType, GraphQLSchema } from 'graphql';
 
-import { summaryQueries } from './query';
+import queries from './query';
 
 const RootQueryType = new GraphQLObjectType({
   name: 'Query',
   description: 'Root Query',
-  fields: () => ({ ...summaryQueries }),
+  fields: () => ({ ...queries }),
 });
 
 // schema

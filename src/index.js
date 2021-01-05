@@ -5,6 +5,9 @@ import { graphqlSchema } from './schema';
 
 dotenv.config();
 
+process.env.NODE_ENV = process.env.NODE_ENV || 'development';
+const isDev = process.env.NODE_ENV === 'development';
+
 const app = express();
 
 const server = new ApolloServer({

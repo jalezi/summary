@@ -1,8 +1,5 @@
-export {
-  SummaryType,
-  DateInputType,
-  CasesType,
-  PropertiesType,
-} from './summaryType';
+export { DateInputType } from './inputTypes';
 
-export { OnDateStats } from './statsTypes';
+export { SummaryType, CasesType, PropertiesType } from './summaryType';
+
+export { OnDateStatsType, StatsFromToType } from './statsTypes';
